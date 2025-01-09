@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recycler"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#36ED1A"
+    tools:context=".dailyplan.DailyPlanFragment">
+<androidx.recyclerview.widget.RecyclerView
+
+    android:id="@+id/recycle_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+ >
+
+</androidx.recyclerview.widget.RecyclerView>
+ </androidx.constraintlayout.widget.ConstraintLayout>
