@@ -38,8 +38,7 @@ class AddDailyFragment : Fragment() {
             setFragmentResult("result", bundleOf("answer" to newText))
             fragmentManager?.popBackStack()
         }
-        binding.btnCancel.setOnClickListener {fragmentManager?.popBackStack() }
-
+        binding.btnCancel.setOnClickListener {fragmentManager?.popBackStack()
+        }
     }
-
 }

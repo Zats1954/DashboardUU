@@ -29,7 +29,7 @@ class GridViewAdapter(
         return 0
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var convertView = convertView
         if (layoutInflater == null) {
             layoutInflater =

@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 class UserViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: UserRepository
     var users: LiveData<List<UserDB>>
-    var res: UserDB = UserDB(0,"","","","")
-    var id = 0L
+    var res: UserDB = UserDB()
+    var user:User? = res.toUser()
 
     init {
         val dao = UsersDatabase.getDatabase(application).getUserDao()

@@ -34,7 +34,6 @@ class DailyAdapter(private val dailyList: MutableList<DailyItem>) :
     override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
         val item = dailyList[position]
         val hour = item.hour
-//        if(hour.length == 1) { hour = "0".plus(hour)}
         holder.hour.text =  hour
         holder.content.text = item.task
         holder.itemView.setOnClickListener {

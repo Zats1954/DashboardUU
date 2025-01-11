@@ -27,7 +27,7 @@ class SignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        user = arguments?.getParcelable("user")
+
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -35,24 +35,22 @@ class SignUpFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        user = arguments?.getParcelable("user")
+        val vm = UserViewModel(requireActivity().application)
 
-        var vm = UserViewModel(requireActivity().application)
-        val userNameET = binding.etUserNameSignUp
-        val userPassET = binding.etUserPassSignUp
-
-        userNameET.setText(user?.name)
-        userPassET.setText(user?.password)
+        binding.etUserNameSignUp.setText(user?.name)
+        binding.etUserPassSignUp.setText(user?.password)
 
         binding.btnLoginSignUp.setOnClickListener {
-            val userNameSignUp = userNameET.text.toString()
-            val userPassSignUp = userPassET.text.toString()
+            val userNameSignUp = binding.etUserNameSignUp.text.toString()
+            val userPassSignUp = binding.etUserPassSignUp.text.toString()
             if (userNameSignUp.isEmpty() || userPassSignUp.isEmpty()) {
                 Toast.makeText(context, "Данные не введены", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             } else {
-                user?.name = userNameET.text.toString()
-                user?.password = userPassET.text.toString()
-                user?.phone = "77777"
+                user?.name = binding.etUserNameSignUp.text.toString()
+                user?.password = binding.etUserPassSignUp.text.toString()
+                user?.phone = binding.etUserPhoneSignUp.text.toString()
                 user?.time = formatMilliseconds(Date().time)
                 vm.insertUser(UserDB.fromUser(user!!)).observe(viewLifecycleOwner, Observer {id ->
                     if(id < 0L) {
@@ -67,13 +65,6 @@ class SignUpFragment : Fragment() {
                 }
             }
         }
-
-
-//    private fun deferred(
-//        vm: UserViewModel,
-//        it: User
-//    ) = CoroutineScope(Dispatchers.IO).async { vm.findUser("yyy").await()
-//        vm.findUser(it.name).await() }
 
     fun formatMilliseconds(time: Long): String {
         val formatTime = SimpleDateFormat("dd.MM.yy HH:mm")

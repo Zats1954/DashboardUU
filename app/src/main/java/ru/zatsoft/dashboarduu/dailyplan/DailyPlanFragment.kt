@@ -6,30 +6,33 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import ru.zatsoft.dashboarduu.MyItemDecoration
 import ru.zatsoft.dashboarduu.R
 import ru.zatsoft.dashboarduu.databinding.FragmentDailyPlanBinding
+import ru.zatsoft.dashboarduu.usersstore.UserViewModel
 
 
 class DailyPlanFragment : Fragment() {
     private  var _binding : FragmentDailyPlanBinding? = null
     private val binding get() = _binding!!
     private var dailyList: MutableList<DailyItem> = mutableListOf()
-
+    private val vm: UserViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View  {
          _binding = FragmentDailyPlanBinding.inflate(inflater, container, false)
-
+//  Заполнение часового столбца
           var cas: String
           for(i in 0..24) {
               cas = if(i< 10) "0".plus(i.toString())
                                         else i.toString()
               dailyList.add(DailyItem(cas.plus(":00"),"",false))
           }
+
         return binding.root
     }
 
@@ -41,7 +44,9 @@ class DailyPlanFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
         binding.recycleView.addItemDecoration(MyItemDecoration(requireContext(), R.drawable.divider))
         binding.recycleView.setHasFixedSize(true)
+        binding.recyclerTitle.text = getString(R.string.daily_plan, vm.user?.name)
 
+// Сохранение строки в item
         adapter.setOnDailyClickListener(
             object : DailyAdapter.OnDailyClickListener {
                 override fun onDailyClick(item: DailyItem, position: Int) {
@@ -52,7 +57,6 @@ class DailyPlanFragment : Fragment() {
                     fragmentManager?.beginTransaction()
                         ?.addToBackStack(null)
                         ?.replace(R.id.main, fragmentEdit)?.commit()
-
                     setFragmentResultListener("result"){
                             key,backBundle ->
                         val res = backBundle.getString("answer")

@@ -8,15 +8,15 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "myUsers", indices = [Index(value = ["name"], unique = true)])
 data class UserDB(
     @PrimaryKey(autoGenerate = true)
-    var id: Long,
+    var id: Long = 0L,
     @ColumnInfo(name = "name" )
-    var nameDB: String,
+    var nameDB: String = "",
     @ColumnInfo(name = "phone")
-    var phoneDB: String,
+    var phoneDB: String = "",
     @ColumnInfo(name = "password")
-    var passwordDB: String,
+    var passwordDB: String = "",
     @ColumnInfo(name = "time_created")
-    var timeDB: String
+    var timeDB: String = ""
 
 ) {
     fun toUser() = User(id, nameDB, phoneDB, passwordDB, timeDB)
